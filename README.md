@@ -14,5 +14,5 @@ This is just a flask + dramatiq example project
 
 ## Run dramatiq
 ```bash
-> venv/bin/dramatiq wsgi:broker
+> venv/bin/dramatiq wsgi:broker --watch .
 ``` 
