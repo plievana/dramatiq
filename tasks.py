@@ -34,20 +34,6 @@ def parent_task(name: str, n_subtasks: int):
     ).run()
 
 
-@dramatiq.actor(max_retries=0)
-def parent_task_bkp(name: str, n_subtasks: int):
-    current_app.logger.info(f'[{name}] Starting parent-task with {n_subtasks} subtasks')
-    t1 = time.time()
-    g = dramatiq.group(
-        (run_subtask.message(name, i) for i in range(n_subtasks))
-    ).run()
-    try:
-        g.wait(timeout=5_000)
-    except ResultTimeout:
-        g.wait(timeout=5_000)
-    current_app.logger.info(f'[{name}] Finished parent-task in {time.time() - t1} secs')
-
-
 @dramatiq.actor(max_retries=0, store_results=True)
 def run_subtask(msg_id, parent_name: str, i: int):
     try:
