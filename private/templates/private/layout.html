@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Private area</title>
+</head>
+<body>
+    <div>Welcome <b>{{g.user.name}}</b> You are in account <b>{{g.user.account}}</b></div>
+    <ul>
+        <li>
+            <a href="{{ url_for('private.test_task') }}">Test task</a>
+        </li>
+        <li>
+            <a href="{{ url_for('private.single_task') }}">Single task</a>
+        </li>
+        <li>
+            <a href="{{ url_for('private.subtasks') }}">Subtasks</a>
+        </li>
+        <li>
+            <a href="{{ url_for('private.one_at_a_time') }}">One at a time</a>
+        </li>
+    </ul>
+    <hr>
+
+    {% block main %}
+    {% endblock %}
+</body>
+</html>

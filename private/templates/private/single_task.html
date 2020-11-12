@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Single Task</title>
-</head>
-<body>
+{% extends "private/layout.html" %}
+{% block main %}
     <h1>Single Task</h1>
-    <form action="/single-task" method="post">
+    <form action="{{ url_for('private.single_task') }}" method="post">
         <p><label>Name:</label><input type="text" value="" name="name"></p>
         <p><label>Duration (in seconds):</label><input type="number" value="1" name="duration"></p>
         <p><button type="submit">Submit</button></p>
     </form>
-</body>
-</html>
+{% endblock %}

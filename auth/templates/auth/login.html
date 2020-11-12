@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+        <p>
+            <b>{{ category }}</b> {{ message }}
+        </p>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<form action="/login" method="POST">
+    <p>
+        <label>Name:</label><input type="text" name="name" id="name">
+    </p>
+    <p>
+        <label>Account:</label>
+        <select name="account">
+            {% for i in range(1, 6) %}
+            <option>Account-{{ i }}</option>
+            {% endfor %}
+        </select>
+    </p>
+    <button type="submit">submit</button>
+</form>
+</body>
+</html>

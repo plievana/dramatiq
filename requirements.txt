@@ -1,3 +1,4 @@
 flask
 dramatiq[redis, watch]
 flask-melodramatiq
+flask-login

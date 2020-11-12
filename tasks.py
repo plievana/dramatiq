@@ -6,6 +6,8 @@ from flask import current_app
 import time
 import random
 from app import dramatiq, cache
+from dramatiq.rate_limits import ConcurrentRateLimiter
+from dramatiq.rate_limits.backends import RedisBackend
 
 
 @dramatiq.actor
@@ -70,3 +72,13 @@ def create_subtasks(parent_name: str, n_subtasks):
 @dramatiq.actor(max_retries=0)
 def close_task(name: str, started: time):
     current_app.logger.info(f'[{name}] Finished parent-task in {time.time() - started} secs')
+
+
+@dramatiq.actor()
+def one_at_a_time(locker):
+    backend = RedisBackend()
+    mutex = ConcurrentRateLimiter(backend, f"locker::{locker}", limit=1)
+    with mutex.acquire():
+        current_app.logger.info(f"[{locker}] - Starts")
+        time.sleep(20)
+        current_app.logger.info(f"[{locker}] - Done")
