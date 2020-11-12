@@ -6,6 +6,11 @@
 </head>
 <body>
     <div>Welcome <b>{{g.user.name}}</b> You are in account <b>{{g.user.account}}</b></div>
+    <ul style="float: right">
+        <li>
+            <a href="{{ url_for('auth.logout') }}">Logout</a>
+        </li>
+    </ul>
     <ul>
         <li>
             <a href="{{ url_for('private.test_task') }}">Test task</a>
